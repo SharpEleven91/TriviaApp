@@ -1,7 +1,7 @@
 {
   "name": "javascript-development-environment",
   "version": "1.0.0",
-  "description": "JavaScript development environment Pluralsight course by Cory House",
+  "description": "N/A",
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage.js",
     "start": "npm-run-all --parallel security-check open:src lint:watch test:watch",
@@ -12,15 +12,19 @@
     "lint": "esw webpack.config.* src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all clean-dist test lint",
+    "build": "babel-node buildScripts/build.js",
+    "postBuild": "babel-node buildScripts/distServer.js"
   },
-  "author": "Cory House",
+  "author": "Cody Biller",
   "license": "MIT",
   "dependencies": {
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "6.16.0",
+    "babel-cli": "^6.16.0",
     "babel-core": "6.17.0",
     "babel-loader": "6.2.5",
     "babel-preset-latest": "6.16.0",
