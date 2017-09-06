@@ -4,6 +4,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+/* eslint-disable max-len */
+
 export default {
   debug: true,
   devtool: 'source-map',
@@ -63,6 +65,7 @@ export default {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
       {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')},
+      {test: /\.scss$/, loader: ExtractTextPlugin.extract('css!sass')},
     ],
   },
 };
