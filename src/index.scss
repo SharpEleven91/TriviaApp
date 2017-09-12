@@ -7,8 +7,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 200px;
 }
 
 #triviaBox {
-    background-color: #bb4d00
+    color: white;
+    width: 800px;
+    height: 500px;
+    background-color: #bb4d00;
+    border: 1px solid black;
+    box-shadow: 10px 5px 3px black;
 }
