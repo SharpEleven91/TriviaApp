@@ -1,5 +1,14 @@
 body {
-    h1 {
-        color: red;
-    }
+    background-color: #f57c00;
+    font-size: 24px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#triviaBox {
+    background-color: #bb4d00
 }
