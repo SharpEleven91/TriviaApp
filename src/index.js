@@ -39,19 +39,20 @@ class Fetch extends React.Component {
         this.setState((prevState, props) => {
             return {rounds: prevState.rounds + 1};
         });
-
-        ReactDOM.render(
-            <Fetch/>,
-            document.getElementById("triviaBox")
-        )
-        console.log(this.state.rounds, this.state.score)
+        if (this.state.rounds != 10) {
+            ReactDOM.render(
+                <Fetch/>,
+                document.getElementById("triviaBox")
+            )
+        } else {
+            ReactDOM.render(
+                <div> You've scored {this.state.score} out of 10!</div>,
+                document.getElementById("triviaBox")
+            )
+        }
     }
 
     render() {
-        if (this.state.rounds == 10) {
-            return <Gameover score = {this.state.score}/>
-        }
-
         var style = {
             padding: "20px 20px 20px 20px"
         }
@@ -76,16 +77,6 @@ class Fetch extends React.Component {
                 </div>
               </div>
         )
-    }
-}
-
-class Gameover extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render () {
-     return 
-        <div> You scored {props.score} out of 10 </div>
     }
 }
 
