@@ -7,7 +7,12 @@ body {
     font-size: 24px;
     font-family: 'Open Sans', sans-serif;
 }
-
+a {
+    outline: none;
+}
+div {
+    min-height: 1px;
+}
 .container {
     display: flex;
     justify-content: center;
@@ -28,6 +33,7 @@ body {
 }
 
 .newGameButton {
+    outline: none;
     letter-spacing: 0.1cm;
     font-size: 24px;
     font-weight: bold;
@@ -39,6 +45,10 @@ body {
     padding: 30px 70px 30px 70px;
     &:hover {
         transform: scale(1.1, 1.1);
+    }
+    &:active {
+        transform: translateY(6px);
+        outline: none;
     }
 }
 
@@ -57,12 +67,20 @@ body {
 }
 
 .answerButton {
+    outline: none;
+    margin: auto;
+    padding: 5px 5px 5px 5px;
     font-size: 24px;
     border: none;
     text-align: center;
     color: white;
     background-color: $primaryColor;
     &:hover {
-        border-bottom: 2px solid white;
+        background-color: $backgroundColor;
+        box-shadow: 5px 3px 1px black;
+    }
+    &:active {
+        box-shadow: 0 2px black;
+        transform: translateY(4px);
     }
 }

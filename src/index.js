@@ -2,18 +2,23 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import jquery from 'jquery';
+const Entities = require('html-entities').AllHtmlEntities;
+const entities = new Entities();
 
 class Fetch extends React.Component {
     constructor(props) {
         super(props);
-
+        this.handleClick = this.handleClick.bind(this)
         this.state = {
             questions: [],
             answers: [],
-            correctAnswer: []
+            correctAnswer: [],
+            score: 0,
+            rounds: 0,
         };
-    }
 
+    }
     componentDidMount() {
         axios.get('https://opentdb.com/api.php?amount=1&type=multiple')
         .then(data => {
@@ -22,34 +27,64 @@ class Fetch extends React.Component {
         })
     }
 
+    handleClick(answer) {
+        var correct = this.state.correctAnswer;
+        if (answer == correct) {
+            this.setState((prevState, props) => {
+                return {score: prevState.score + 1}
+            })
+            console.log("Correct!")
+        }
+
+        this.setState((prevState, props) => {
+            return {rounds: prevState.rounds + 1};
+        });
+
+        ReactDOM.render(
+            <Fetch/>,
+            document.getElementById("triviaBox")
+        )
+        console.log(this.state.rounds, this.state.score)
+    }
+
     render() {
+        if (this.state.rounds == 10) {
+            return <Gameover score = {this.state.score}/>
+        }
+
         var style = {
             padding: "20px 20px 20px 20px"
         }
         var answers = [];
 
         for (let i = 0; i < this.state.answers.length; i++) {
-            answers.push(this.state.answers[i]);
+            answers.push(entities.decode(this.state.answers[i]));
         }
         answers.push(this.state.correctAnswer);
-        console.log(answers);
 
         // Ensure correct answer wont be the last option every time
         var indexedAnswers = answers.sort(function(a, b) {
             return a.length - b.length;
-        })
-
-        return <div>
-                <div className="question"> {this.state.questions} </div>
-                <div className="answers"> <button className="answerButton"> {indexedAnswers[0]} </button>
-                                          <button className="answerButton"> {indexedAnswers[1]} </button> 
-                                          <button className="answerButton"> {indexedAnswers[2]} </button> 
-                                          <button className="answerButton"> {indexedAnswers[3]} </button> 
+        });
+        return (<div>
+                <div className="question">{entities.decode(this.state.questions)}</div>
+                <div> </div>
+                <div className="answers"> <button className="answerButton" onClick = { () => this.handleClick(indexedAnswers[0])}> {indexedAnswers[0]} </button>
+                                          <button className="answerButton" onClick = { () => this.handleClick(indexedAnswers[1])}> {indexedAnswers[1]} </button> 
+                                          <button className="answerButton" onClick = { () => this.handleClick(indexedAnswers[2])}> {indexedAnswers[2]} </button> 
+                                          <button className="answerButton" onClick = { () => this.handleClick(indexedAnswers[3])}> {indexedAnswers[3]} </button> 
                 </div>
               </div>
+        )
     }
 }
 
+function Gameover (props) {
+    ReactDOM.render (
+        <div>You scored {props.score} out of 10</div>,
+        document.getElementById("triviaBox")
+    )
+}
 class NewGame extends React.Component {
     constructor(props) {
         super(props)
