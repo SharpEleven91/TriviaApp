@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+$backgroundColor: #f57c00;
+$primaryColor: #bb4d00;
 body {
-    background-color: #f57c00;
+    background-color: $backgroundColor;
     font-size: 24px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .container {
@@ -17,4 +22,47 @@ body {
     background-color: #bb4d00;
     border: 1px solid black;
     box-shadow: 10px 5px 3px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newGameButton {
+    letter-spacing: 0.1cm;
+    font-size: 24px;
+    font-weight: bold;
+    background: $backgroundColor;
+    border-radius: 10px;
+    border: 1px solid $backgroundColor;
+    color: white;
+    text-align: center;
+    padding: 30px 70px 30px 70px;
+    &:hover {
+        transform: scale(1.1, 1.1);
+    }
+}
+
+.question {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0px 25px 50px 25px;
+}
+
+.answers {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 0 25 50px 25px;
+}
+
+.answerButton {
+    font-size: 24px;
+    border: none;
+    text-align: center;
+    color: white;
+    background-color: $primaryColor;
+    &:hover {
+        border-bottom: 2px solid white;
+    }
 }
