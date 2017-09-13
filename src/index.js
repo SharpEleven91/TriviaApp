@@ -79,12 +79,16 @@ class Fetch extends React.Component {
     }
 }
 
-function Gameover (props) {
-    ReactDOM.render (
-        <div>You scored {props.score} out of 10</div>,
-        document.getElementById("triviaBox")
-    )
+class Gameover extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render () {
+     return 
+        <div> You scored {props.score} out of 10 </div>
+    }
 }
+
 class NewGame extends React.Component {
     constructor(props) {
         super(props)
