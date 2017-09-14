@@ -14,16 +14,17 @@ class Trivia extends React.Component {
             wrongAnswers: [],
             correctAnswer: [],
             score: 0,
-            rounds: 0
+            rounds: 1
         };
         this.handleClick = this.handleClick.bind(this);
+    }
+    componentDidMount() {
         fetch("https://opentdb.com/api.php?amount=1&type=multiple")
         .then((res) => {
             return res.json();
         })
         .then((resJson) => {
             this.setState({question: resJson.results[0].question, correctAnswer: resJson.results[0].correct_answer, wrongAnswers: resJson.results[0].incorrect_answers});
-            console.log(this.state);
         })
         .catch((error) => {
             console.log(error);
@@ -46,7 +47,6 @@ class Trivia extends React.Component {
             })
             .then((resJson) => {
                 this.setState({question: resJson.results[0].question, correctAnswer: resJson.results[0].correct_answer, wrongAnswers: resJson.results[0].incorrect_answers});
-                console.log(this.state);
             })
             .catch((error) => {
                 console.log(error);
@@ -58,13 +58,12 @@ class Trivia extends React.Component {
             );
         } else {
             ReactDOM.render(
-                <div> You scored {this.state.score} of 10 </div>,
+                <GameOver score = {this.state.score}/>,
                 document.getElementById("triviaBox")
             )
         }
     }
     render() {
-        console.log(this.state.score);
         let answers = [];
         for (let i = 0; i < 3; i++) {
             answers.push(entities.decode(this.state.wrongAnswers[i]));
@@ -92,6 +91,22 @@ class Trivia extends React.Component {
             </div>
             </div>
         );
+    }
+}
+
+class GameOver extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newGame: 0
+        }
+    }
+    render() {
+        return  <div>
+                    <div className="question"> You scored {this.props.score} out of 10! </div>
+                    <div className="answers">
+                    </div>
+                </div>
     }
 }
 ReactDOM.render(
