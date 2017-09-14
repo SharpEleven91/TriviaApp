@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-$backgroundColor: #f57c00;
-$primaryColor: #bb4d00;
+$backgroundColor: black;
+$primaryColor: #2231ff;
 body {
     background-color: $backgroundColor;
     font-size: 24px;
@@ -24,7 +24,7 @@ div {
     color: white;
     width: 800px;
     height: 500px;
-    background-color: #bb4d00;
+    background-color: $backgroundColor;
     border: 1px solid black;
     box-shadow: 10px 5px 3px black;
     display: flex;

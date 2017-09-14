@@ -4,6 +4,7 @@
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
+    "react",
     "google"
   ],
   "parserOptions": {
@@ -16,7 +17,12 @@
     "mocha": true
   },
   "rules": {
-    "no-console": 1,
+    "indent": 0,
+    "object-curly-spacing": 0,
+    "no-unused-vars": 0,
+    "linebreak-style": 0,
+    "comma-dangle": 0,
+    "no-console": 0,
     "quotes": 0,
     "require-jsdoc": 0,
     "switch-colon-spacing": 0
