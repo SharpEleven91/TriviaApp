@@ -18,6 +18,11 @@ class Trivia extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+    componentWillMount() {
+        if (this.props.newGame == 1) {
+            this.setState({score: 0, rounds: 1})
+        }
+    }
     componentDidMount() {
         fetch("https://opentdb.com/api.php?amount=1&type=multiple")
         .then((res) => {
@@ -99,12 +104,20 @@ class GameOver extends React.Component {
         super(props);
         this.state = {
             newGame: 0
-        }
+        };
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick() {
+        ReactDOM.render(
+            <Trivia newGame = "1"/>,
+                document.getElementById("triviaBox")
+            )
     }
     render() {
         return  <div>
                     <div className="question"> You scored {this.props.score} out of 10! </div>
                     <div className="answers">
+                        <button className="answerButton" onClick = {() => this.handleClick()}> New Game </button>
                     </div>
                 </div>
     }
