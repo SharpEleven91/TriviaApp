@@ -117,7 +117,7 @@ class GameOver extends React.Component {
         return  <div>
                     <div className="question"> You scored {this.props.score} out of 10! </div>
                     <div className="answers">
-                        <button className="answerButton" onClick = {() => this.handleClick()}> New Game </button>
+                        <button className="newGameButton" onClick = {() => this.handleClick()}> New Game </button>
                     </div>
                 </div>
     }

@@ -21,10 +21,10 @@ div {
 }
 
 #triviaBox {
-    color: white;
+    color: black;
     width: 800px;
     height: 500px;
-    background-color: $backgroundColor;
+    background-color: white;
     border: 1px solid black;
     box-shadow: 10px 5px 3px black;
     display: flex;
@@ -37,10 +37,10 @@ div {
     letter-spacing: 0.1cm;
     font-size: 24px;
     font-weight: bold;
-    background: $backgroundColor;
+    background: white;
     border-radius: 10px;
-    border: 1px solid $backgroundColor;
-    color: white;
+    border: 1px solid black;
+    color: black;
     text-align: center;
     padding: 30px 70px 30px 70px;
     &:hover {
@@ -61,26 +61,36 @@ div {
 
 .answers {
     display: flex;
-    justify-content: space-around;
-    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
     padding: 0 25 50px 25px;
 }
 
 .answerButton {
+    flex-basis: 50%;
     border: none;
     outline: none;
-    margin: auto;
     padding: 5px 5px 5px 5px;
+    margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
-    color: white;
-    background-color: $backgroundColor;
+    color: black;
+    background-color: white;
     &:hover {
-        background-color: $backgroundColor;
-        transform: translateY(-2px);
+        transform: translateY(2px);
     }
     &:active {
         box-shadow: 0 2px black;
-        transform: translateY(2px);
+        transform: translateY(4px);
+    }
+    &:nth-of-type(odd) {
+        border-bottom: 1px black solid;
+        border-right: 1px black solid;
+    }
+    &:nth-of-type(even) {
+        border-bottom: 1px black solid;
+        border-left: 1px black solid;
     }
 }
+
