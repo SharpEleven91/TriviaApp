@@ -67,14 +67,15 @@ div {
 }
 
 .answerButton {
+    border: none;
+    border-left: 1px solid yellow;
     outline: none;
     margin: auto;
     padding: 5px 5px 5px 5px;
     font-size: 24px;
-    border: none;
     text-align: center;
     color: white;
-    background-color: $primaryColor;
+    background-color: $backgroundColor;
     &:hover {
         background-color: $backgroundColor;
         box-shadow: 5px 3px 1px black;

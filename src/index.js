@@ -10,46 +10,91 @@ class Trivia extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            result: []
+            result: [],
+            wrongAnswers: [],
+            correctAnswer: [],
+            score: 0,
+            rounds: 0
         };
         this.handleClick = this.handleClick.bind(this);
-    }
-    handleClick(props) {
-
         fetch("https://opentdb.com/api.php?amount=1&type=multiple")
         .then((res) => {
             return res.json();
         })
         .then((resJson) => {
-            // this.setState({result: resJson.results[0]});
-            this.setState({result: resJson.results[0]});
+            this.setState({question: resJson.results[0].question, correctAnswer: resJson.results[0].correct_answer, wrongAnswers: resJson.results[0].incorrect_answers});
+            console.log(this.state);
         })
         .catch((error) => {
             console.log(error);
         });
-
-        ReactDOM.render(
-            <Trivia counter = {this.props.counter+1}/>,
-            document.getElementById("triviaBox")
-        )
     }
+    handleClick(answer) {
+        if (answer == this.state.correctAnswer) {
+            this.setState((prevState) =>  ({
+                score: prevState.score + 1
+            }));
+        }
 
-    componentDidUpdate() {
-        console.log(this.state.result);
+        if (this.state.rounds != 10) {
+            this.setState((prevState) => ({
+                rounds: prevState.rounds + 1
+            }));
+            fetch("https://opentdb.com/api.php?amount=1&type=multiple")
+            .then((res) => {
+                return res.json();
+            })
+            .then((resJson) => {
+                this.setState({question: resJson.results[0].question, correctAnswer: resJson.results[0].correct_answer, wrongAnswers: resJson.results[0].incorrect_answers});
+                console.log(this.state);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+            ReactDOM.render(
+                <Trivia/>,
+                document.getElementById("triviaBox")
+            );
+        } else {
+            ReactDOM.render(
+                <div> You scored {this.state.score} of 10 </div>,
+                document.getElementById("triviaBox")
+            )
+        }
     }
     render() {
+        console.log(this.state.score);
+        let answers = [];
+        for (let i = 0; i < 3; i++) {
+            answers.push(entities.decode(this.state.wrongAnswers[i]));
+        }
+        answers.push(entities.decode(this.state.correctAnswer));
+        // Ensure correct answer wont be the last option every time
+        let indexedAnswers = answers.sort(function(a, b) {
+            return a.length - b.length;
+        });
         return (
             <div>
-            <div> {entities.decode(this.state.result.question)} </div>
+            <div className="question"> {entities.decode(this.state.question)} </div>
             <div></div>
+            <div>
             <div className="answers">
-            <div className="answerButton"><button onClick = {() => this.handleClick()}> {this.props.counter} </button></div>
+                <button className="answerButton" onClick = {() => this.handleClick(indexedAnswers[0])}>
+                {indexedAnswers[0]}</button>
+                <button className="answerButton" onClick = {() => this.handleClick(indexedAnswers[1])}>
+                {indexedAnswers[1]}</button>
+                <button className="answerButton" onClick = {() => this.handleClick(indexedAnswers[2])}>
+                {indexedAnswers[2]}</button>
+                <button className="answerButton" onClick = {() => this.handleClick(indexedAnswers[3])}>
+                {indexedAnswers[3]}</button>
             </div>
             </div>
-        )
+            </div>
+        );
     }
 }
 ReactDOM.render(
-    <Trivia counter = "0" />,
+    <Trivia/>,
     document.getElementById("triviaBox")
     );
