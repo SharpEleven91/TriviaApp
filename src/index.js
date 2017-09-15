@@ -20,7 +20,7 @@ class Trivia extends React.Component {
     }
     componentWillMount() {
         if (this.props.newGame == 1) {
-            this.setState({score: 0, rounds: 1})
+            this.setState({score: 0, rounds: 1});
         }
     }
     componentDidMount() {
@@ -37,7 +37,7 @@ class Trivia extends React.Component {
     }
     handleClick(answer) {
         if (answer == this.state.correctAnswer) {
-            this.setState((prevState) =>  ({
+            this.setState((prevState) => ({
                 score: prevState.score + 1
             }));
         }
@@ -111,10 +111,10 @@ class GameOver extends React.Component {
         ReactDOM.render(
             <Trivia newGame = "1"/>,
                 document.getElementById("triviaBox")
-            )
+            );
     }
     render() {
-        return  <div>
+        return <div>
                     <div className="question"> You scored {this.props.score} out of 10! </div>
                     <div className="answers">
                         <button className="newGameButton" onClick = {() => this.handleClick()}> New Game </button>
